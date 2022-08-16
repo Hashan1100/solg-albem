@@ -1,0 +1,18 @@
+
+{
+  "excludeNotDocumented": false,
+  "excludeExternals": false,
+  "pretty": true,
+  "name": "Mycoriza generated typedoc",
+  "out": "./docs/api",
+  "entryPoints": [
+    "./src/api/service/models/PingControllerTestDeleteRequestBody.ts", 
+    "./src/api/service/models/PingResponse.ts", 
+    "./src/api/service/reducers/pingController/pingControllerPing.ts", 
+    "./src/api/service/reducers/pingController/pingControllerPing.ts", 
+    "./src/api/service/reducers/pingController/pingControllerTestDelete.ts", 
+    "./src/api/service/reducers/pingController/pingControllerTestPost.ts"
+  ],
+  "entryPointStrategy": "Resolve",
+  "tsconfig": "./tsconfig.json"
+}

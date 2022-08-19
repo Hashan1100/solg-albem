@@ -1,0 +1,11 @@
+{
+	"sources": [
+		{
+			"id": "albem",
+			"name": "Swagger Petstore",
+			"devUrl": "http://localhost:8080/api/v3/openapi.json",
+			"prodUrl": "http://localhost:8080/api/v3/openapi.json",
+			"specUrl": "http://localhost:8080/api/v3/openapi.json"
+		}
+	]
+}

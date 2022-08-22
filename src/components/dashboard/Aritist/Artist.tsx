@@ -1,31 +1,39 @@
-import {isPending, isSuccess} from "mycoriza-runtime";
+import {isPending, isSuccess, isError} from "mycoriza-runtime";
 import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {isError} from "mycoriza-runtime/dist/engine";
-import {useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useFindArtistByName} from "../../../api/albem/reducers/artist/useFindArtistByName";
 import {Artist} from "../../../api/albem/models/Artist";
+import {ApiContext} from "../MainUI";
+import {TokenContext} from "../../../App";
 
 interface ArtistTableProps {
 
 }
 
-export function ArtistTable({}: ArtistTableProps) {
-    let [status, find, clear] = useFindArtistByName();
+// export function ArtistWithContext() {
+//     return <ApiContext.Consumer>
+//         <ArtistTable/>
+//     </ApiContext.Consumer>
+// }
+
+export function ArtistTable() {
+    let [status, find] = useFindArtistByName();
+
+    let [artists, setArtists] = useState<Artist[]>()
 
     useEffect(() => {
         find({
-            artist: "believe"
+            apiKey: "d732731be2f5f0ec4b10e5a3607d7090",
+            artist: "cher"
         })
-        return clear
     }, [])
 
     useEffect(() => {
-
+        if (isSuccess(status)) {
+            setArtists(status.data.results.artistmatches.artist)
+        }
     }, [status])
 
-    if (isSuccess(status)) {
-        return <TableContent artist={status.data.results.artistmatches.artist}/>
-    }
 
     if (isPending(status)) {
         return <p>Loading</p>
@@ -35,7 +43,14 @@ export function ArtistTable({}: ArtistTableProps) {
         return <p>Loading error</p>
     }
 
-    return null
+    return <>
+        {
+            isSuccess(status) && <TableContent artist={artists ?? []}/>
+        }
+        {
+            isError(status) && <p>Loading error</p>
+        }
+    </>
 
 }
 

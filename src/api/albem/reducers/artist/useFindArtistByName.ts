@@ -15,6 +15,7 @@ const domain = "@mycoriza/artist/artistInfo"
 
 export type FindArtistByName_Params = {
   artist?: string
+  apiKey: string
 }
 
 /**
@@ -30,7 +31,7 @@ export function useFindArtistByName(entityKey: string = "default"):
   function execute(params: FindArtistByName_Params) {
   let parameters = {
     query: {
-      ...(params['artist'] ? { 'artist': params['artist'], 'method': "artist.search" } : {}),
+      ...(params['artist'] ? { 'artist': params['artist'], "api_key": params['apiKey'], 'method': "artist.search", "format": "json" } : {}),
 },
 }
 
@@ -38,7 +39,7 @@ export function useFindArtistByName(entityKey: string = "default"):
     }
 
     return [
-        resolveFamily(entityKey, useSelector<MycorizaState<any>, NetworkStateFamily<Pokedex>>(state => state.albem)),
+        resolveFamily(entityKey, useSelector<MycorizaState<any>, NetworkStateFamily<Pokedex>>(state => state.album)),
         execute,
         () => dispatch(reset(domain, entityKey))
     ]

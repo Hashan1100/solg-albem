@@ -1,18 +1,18 @@
 
-import {combineReducers, ReducersMapObject} from 'redux'
+import {combineReducers} from 'redux'
 import { ArtistState, artistReducers } from './artist';
 
 /**
  * @ignore
  */
-export type AlbemState = {
+export type AlbumState = {
       artist: ArtistState
 }
 
 /**
  * @ignore
  */
-export const albemReducers = combineReducers<AlbemState>({
+export const albumReducers = combineReducers<AlbumState>({
   artist: artistReducers
 })
 

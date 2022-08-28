@@ -1,10 +1,17 @@
 import {isPending, isSuccess, isError} from "mycoriza-runtime";
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {useContext, useEffect, useState} from "react";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    tableCellClasses,
+    TableContainer,
+    TableHead,
+    TableRow, Theme, useTheme
+} from "@mui/material";
+import {useEffect, useState} from "react";
 import {useFindArtistByName} from "../../../api/albem/reducers/artist/useFindArtistByName";
 import {Artist} from "../../../api/albem/models/Artist";
-import {ApiContext} from "../MainUI";
-import {TokenContext} from "../../../App";
+import styled from "@emotion/styled";
 
 interface ArtistTableProps {
 
@@ -17,7 +24,7 @@ interface ArtistTableProps {
 // }
 
 export function ArtistTable() {
-    let [status, find] = useFindArtistByName();
+    let [status, find, clear] = useFindArtistByName();
 
     let [artists, setArtists] = useState<Artist[]>()
 
@@ -26,6 +33,7 @@ export function ArtistTable() {
             apiKey: "d732731be2f5f0ec4b10e5a3607d7090",
             artist: "cher"
         })
+        return clear
     }, [])
 
     useEffect(() => {
@@ -63,15 +71,15 @@ export function TableContent({artist}: TableContentProps) {
         <Table aria-label="simple table">
             <TableHead>
                 <TableRow>
-                    <TableCell>
+                    <StyledTableCell>
                         Name
-                    </TableCell>
-                    <TableCell>
+                    </StyledTableCell>
+                    <StyledTableCell>
                         Listeners
-                    </TableCell>
-                    <TableCell>
+                    </StyledTableCell>
+                    <StyledTableCell>
                         URL
-                    </TableCell>
+                    </StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -85,7 +93,7 @@ export function TableContent({artist}: TableContentProps) {
                                 {value.listeners}
                             </TableCell>
                             <TableCell>
-                                {value.url}
+                                <a href={value.url}>{value.url}</a>
                             </TableCell>
                         </TableRow>
                     })
@@ -94,3 +102,13 @@ export function TableContent({artist}: TableContentProps) {
         </Table>
     </TableContainer>
 }
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: "black",
+        color: "white",
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));

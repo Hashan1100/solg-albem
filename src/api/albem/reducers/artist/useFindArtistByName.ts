@@ -39,7 +39,7 @@ export function useFindArtistByName(entityKey: string = "default"):
     }
 
     return [
-        resolveFamily(entityKey, useSelector<MycorizaState<any>, NetworkStateFamily<Pokedex>>(state => state.album)),
+        resolveFamily(entityKey, useSelector<MycorizaState<any>, NetworkStateFamily<Pokedex>>(state => state.album.artist.useFindArtistByName)),
         execute,
         () => dispatch(reset(domain, entityKey))
     ]
